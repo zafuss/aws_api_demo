@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon api.js"    
+    "start": "nodemon api.js"
   },
   "dependencies": {
     "body-parser": "1.20.2",
@@ -14,7 +14,7 @@
     "mssql": "10.0.1"
   },
   "devDependencies": {
-    "nodemon": "3.0.1"
+    "nodemon": "^3.0.1"
   },
   "keywords": [],
   "author": "",
