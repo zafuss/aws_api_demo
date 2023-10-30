@@ -13,6 +13,10 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use('/', router);
 
+app.get('/', (req, res) => {
+    res.send('powered by zafus');
+  });
+  
 
 router.use((request, response, next) => {
     console.log('middleware');
