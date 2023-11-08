@@ -35,6 +35,13 @@ router.route('/users/:username').get((request, response) => {
     })
 })
 
+router.router('users/:username').put((request, response) => {
+    let user = {...request.body}
+    let username = request.params.username;
+
+    dboperations.editUser(user, username).then(result => response.status(200).json(result));
+})
+
 router.route('/users').post((request, response) => {
     let user = {...request.body}
 

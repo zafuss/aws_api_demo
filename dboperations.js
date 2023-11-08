@@ -44,8 +44,28 @@ async function addUser(user) {
     }
 }
 
+async function editUser(user, username) {
+    try {
+        if (username != user.Username)
+            throw "false";
+        let pool = await sql.connect(config);
+        let editUser = await pool.request()
+            .input('Username', sql.NVarChar, user.Username)
+            .input('NewPassword', sql.NVarChar, user._Password)
+            .input('NewName', sql.NVarChar, user._Name)
+            .input('NewRole', sql.NVarChar, user._Role)
+            .input('NewPhoneNumber', sql.VarChar, user.PhoneNumber)
+            .input('NewStatus', sql.NVarChar, user._Status)
+            .execute('EditUser');
+        return editUser.recordsets;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getUsers : getUsers,
     getUser : getUser,
-    addUser : addUser
+    addUser : addUser,
+    editUser : editUser,
 }
