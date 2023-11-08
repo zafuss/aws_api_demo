@@ -54,6 +54,7 @@ async function editUser(user, username) {
             .input('NewPassword', sql.NVarChar, user._Password)
             .input('NewName', sql.NVarChar, user._Name)
             .input('NewRole', sql.NVarChar, user._Role)
+            .input('NewEmail', sql.NVarChar, user.Email)
             .input('NewPhoneNumber', sql.VarChar, user.PhoneNumber)
             .input('NewStatus', sql.NVarChar, user._Status)
             .execute('EditUser');
