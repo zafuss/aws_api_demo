@@ -36,7 +36,15 @@ router.route('/users/:username').get((request, response) => {
 })
 
 router.route('users/:username').put((request, response) => {
-    let user = {...request.body}
+    let user =     {
+        "Username": "admin",
+        "_Password": "CinA5MJWDvBTvOJSvluE4g==",
+        "_Name": "adminnnnn",
+        "_Role": "Admin",
+        "Email": "todreamscompany@gmail.com",
+        "PhoneNumber": "0823216213",
+        "_Status": "Enabled"
+    }
     let username = request.params.username;
 
     dboperations.editUser(user, username).then(result => response.status(200).json(result));
