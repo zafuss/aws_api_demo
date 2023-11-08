@@ -30,24 +30,21 @@ router.route('/users').get((request, response) => {
 })
 
 router.route('/users/:username').get((request, response) => {
+    
     dboperations.getUser(request.params.username).then(result => {
-        response.json(result[0]);
+        if (JSON.stringify(result[0]) === JSON.stringify([]))     
+            return response.status(404).json({message: 'User not found.'});        
+        else 
+            return response.json(result[0]);
     })
 })
 
-router.route('users/:username').put((request, response) => {
-    let user =     {
-        "Username": "admin",
-        "_Password": "CinA5MJWDvBTvOJSvluE4g==",
-        "_Name": "adminnnnn",
-        "_Role": "Admin",
-        "Email": "todreamscompany@gmail.com",
-        "PhoneNumber": "0823216213",
-        "_Status": "Enabled"
-    }
+router.route('/users/:username').put((request, response) => {
+    let user = {...request.body}
     let username = request.params.username;
-
-    dboperations.editUser(user, username).then(result => response.status(200).json(result));
+    if (user.Username != username) 
+        return response.status(404).json({ message: 'User not found.' });
+    dboperations.editUser(user).then(result => response.status(200).json(result));
 })
 
 router.route('/users').post((request, response) => {
@@ -63,16 +60,7 @@ app.listen(port);
 console.log('User API is running at '+ port);
 
 
-let user =     {
-    "Username": "admin",
-    "_Password": "CinA5MJWDvBTvOJSvluE4g==",
-    "_Name": "adminnnnn",
-    "_Role": "Admin",
-    "Email": "todreamscompany@gmail.com",
-    "PhoneNumber": "0823216213",
-    "_Status": "Enabled"
-}
-
-dboperations.editUser(user, "admin").then(result => {
+dboperations.getUsers().then(result => {
     console.log(result);
 })
+

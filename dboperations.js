@@ -26,6 +26,17 @@ async function getUser(Username) {
     }
 }
 
+async function isUserExists(username) {
+    try {
+        let pool = await sql.connect(config);
+        let user  = await pool.getUserByUsername(username); // Thay thế bằng phương thức thực tế để lấy người dùng từ cơ sở dữ liệu
+        return !!user; // Trả về true nếu người dùng tồn tại, ngược lại trả về false
+    } catch (error) {
+        console.error(error);
+        return false; // Trong trường hợp xảy ra lỗi, trả về false
+    }
+}
+
 async function addUser(user) {
     try {
         let pool = await sql.connect(config);
@@ -44,10 +55,8 @@ async function addUser(user) {
     }
 }
 
-async function editUser(user, username) {
+async function editUser(user) {
     try {
-        if (username != user.Username)
-            throw "false";
         let pool = await sql.connect(config);
         let editUser = await pool.request()
             .input('Username', sql.NVarChar, user.Username)
@@ -69,4 +78,5 @@ module.exports = {
     getUser : getUser,
     addUser : addUser,
     editUser : editUser,
+    isUserExists : isUserExists
 }
