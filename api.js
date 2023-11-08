@@ -55,6 +55,16 @@ app.listen(port);
 console.log('User API is running at '+ port);
 
 
-dboperations.getUsers().then(result => {
+let user =     {
+    "Username": "admin",
+    "_Password": "CinA5MJWDvBTvOJSvluE4g==",
+    "_Name": "adminnnnn",
+    "_Role": "Admin",
+    "Email": "todreamscompany@gmail.com",
+    "PhoneNumber": "0823216213",
+    "_Status": "Enabled"
+}
+
+dboperations.editUser(user, "admin").then(result => {
     console.log(result);
 })
