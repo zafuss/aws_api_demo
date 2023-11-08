@@ -1,4 +1,4 @@
-var config = require('./dbconfig');
+var config = require('../dbconfig');
 const sql = require('mssql');
 
 
@@ -23,17 +23,6 @@ async function getUser(Username) {
 
     } catch (error) {
         console.log(error);
-    }
-}
-
-async function isUserExists(username) {
-    try {
-        let pool = await sql.connect(config);
-        let user  = await pool.getUserByUsername(username); // Thay thế bằng phương thức thực tế để lấy người dùng từ cơ sở dữ liệu
-        return !!user; // Trả về true nếu người dùng tồn tại, ngược lại trả về false
-    } catch (error) {
-        console.error(error);
-        return false; // Trong trường hợp xảy ra lỗi, trả về false
     }
 }
 
@@ -73,10 +62,23 @@ async function editUser(user) {
     }
 }
 
+async function changeUserStatus(username) {
+    try {
+        let pool = await sql.connect(config);
+        let editUser = await pool.request()
+            .input('Username', sql.NVarChar, username)
+            .execute('ChangeUserStatus');
+        return editUser.recordsets;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 module.exports = {
     getUsers : getUsers,
     getUser : getUser,
     addUser : addUser,
     editUser : editUser,
-    isUserExists : isUserExists
+    changeUserStatus : changeUserStatus
 }
