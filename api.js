@@ -35,7 +35,7 @@ router.route('/users/:username').get((request, response) => {
     })
 })
 
-router.router('users/:username').put((request, response) => {
+router.route('users/:username').put((request, response) => {
     let user = {...request.body}
     let username = request.params.username;
 
