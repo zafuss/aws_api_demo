@@ -45,8 +45,8 @@ async function editCustomer(customer) {
         let pool = await sql.connect(config);
         let editCustomer = await pool.request()
             .input('PhoneNumber', sql.VarChar, customer.PhoneNumber)
-            .input('FullName',sql.NVarChar, customer.FullName)
-            .input('Email',sql.NVarChar, customer.Email)
+            .input('NewFullName',sql.NVarChar, customer.FullName)
+            .input('NewEmail',sql.NVarChar, customer.Email)
             .execute('EditCustomer');
         return editCustomer.recordsets;
     } catch (error) {

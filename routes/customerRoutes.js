@@ -22,7 +22,7 @@ router.get('/customers/:phonenumber', (request, response) => {
 router.put('/customers/:phonenumber', (request, response) => {
     let customer = { ...request.body };
     let phonenumber = request.params.phonenumber;
-    if (customer.Customername != phonenumber) {
+    if (customer.PhoneNumber != phonenumber) {
         return response.status(404).json({ message: 'Customer not found.' });
     }
     customerController.editCustomer(customer).then(result => response.status(200).json(result));
