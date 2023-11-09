@@ -9,6 +9,15 @@ router.get('/prices', (request, response) => {
     });
 });
 
+router.post('/prices', (request, response) => {
+    let prices = { ...request.body };
+
+    priceController.addPrice(prices).then(result => {
+        response.status(201).json(result);
+    });
+});
+
+
 router.get('/prices/:PriceID', (request, response) => {
     priceController.getPrice(request.params.PriceID).then(result => {
         if (JSON.stringify(result[0]) === JSON.stringify([])) {
@@ -22,7 +31,7 @@ router.get('/prices/:PriceID', (request, response) => {
 router.put('/prices/:PriceID', (request, response) => {
     let price = { ...request.body };
     let PriceID = request.params.PriceID;
-    if (price.Pricename != PriceID) {
+    if (price.PriceID != PriceID) {
         return response.status(404).json({ message: 'Price not found.' });
     }
     priceController.editPrice(price).then(result => response.status(200).json(result));
@@ -39,13 +48,5 @@ router.put('/prices/status/:PriceID', (request, response) => {
     });    
 });
 
-
-router.post('/prices', (request, response) => {
-    let price = { ...request.body };
-
-    priceController.addPrice(price).then(result => {
-        response.status(201).json(result);
-    });
-});
 
 module.exports = router;

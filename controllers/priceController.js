@@ -32,9 +32,9 @@ async function addPrice(price) {
         let insertPrice = await pool.request()
             .input('PriceID',sql.VarChar, price.PriceID)
             .input('PriceTag',sql.Decimal, price.PriceTag)
-            .input('TimeFactor',sql.float, price.TimeFactor)
-            .input('DateFactor',sql.float, price.DateFactor)
-            .input('_Status',sql.Int, price._Status)
+            .input('TimeFactor',sql.Float, price.TimeFactor)
+            .input('DateFactor',sql.Float, price.DateFactor)
+            .input('_Status',sql.Int, 0)
             .execute('AddPrice');
         return insertPrice.recordsets;
     } catch (error) {
@@ -48,8 +48,8 @@ async function editPrice(price) {
         let editPrice = await pool.request()
             .input('PriceID',sql.VarChar, price.PriceID)
             .input('NewPriceTag',sql.Decimal, price.PriceTag)
-            .input('NewTimeFactor',sql.float, price.TimeFactor)
-            .input('NewDateFactor',sql.float, price.DateFactor)
+            .input('NewTimeFactor',sql.Float, price.TimeFactor)
+            .input('NewDateFactor',sql.Float, price.DateFactor)
             .execute('EditPrice');
         return editPrice.recordsets;
     } catch (error) {
@@ -68,7 +68,6 @@ async function enablePrice(priceID) {
         console.log(error);
     }
 }
-
 
 module.exports = {
     getPrices : getPrices,
