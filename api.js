@@ -3,8 +3,14 @@ const userController = require('./controllers/userController.js')
 const userRoutes = require('./routes/userRoutes.js');
 const priceRoutes = require('./routes/priceRoutes.js')
 const customerRoutes = require('./routes/customerRoutes.js')
+const branchRoute = require('./routes/branchRoutes.js')
+const courtRoute = require('./routes/courtRoutes.js')
+const serviceRoute = require('./routes/serviceRoutes.js')
+const serviceReceiptRoute = require('./routes/serviceReceiptRoutes.js')
+const serviceDetailRoute = require('./routes/serviceDetailRoutes.js')
+const rfDetailRoute = require('./routes/rfDetailRoutes.js')
+const receiptRoute = require('./routes/receiptRoutes.js')
 const reservationRoute = require('./routes/reservationRoutes.js')
-const reservationController = require('./controllers/reservationController.js')
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -19,6 +25,13 @@ app.use(userRoutes);
 app.use(customerRoutes);
 app.use(priceRoutes);
 app.use(reservationRoute);
+app.use(branchRoute);
+app.use(courtRoute);
+app.use(serviceRoute);
+app.use(serviceReceiptRoute);
+app.use(serviceDetailRoute);
+app.use(rfDetailRoute);
+app.use(receiptRoute);
 
 app.get('/', (req, res) => {
     res.send('powered by zafus');
