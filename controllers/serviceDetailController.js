@@ -46,7 +46,7 @@ async function editServiceDetail(ServiceDetail) {
         let editServiceDetail = await pool.request()
             .input('ServiceReceiptNo',sql.NVarChar, ServiceDetail.ServiceReceiptNo)
             .input('NewServiceID',sql.VarChar, ServiceDetail.NewServiceID)
-            .input('NewQuantity',sql.Int, ServiceDetail.NewQuantitys)
+            .input('NewQuantity',sql.Int, ServiceDetail.NewQuantity)
             .execute('EditServiceDetail');
         return editServiceDetail.recordsets;
     } catch (error) {

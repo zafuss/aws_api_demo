@@ -21,7 +21,7 @@ router.get('/servicereceipts/:ServiceReceiptNo', (request, response) => {
 
 router.put('/servicereceipts/:ServiceReceiptNo', (request, response) => {
     let servicereceipt = { ...request.body };
-    let servicereceiptid = request.params.servicereceiptid;
+    let ServiceReceiptNo = request.params.ServiceReceiptNo;
     if (servicereceipt.ServiceReceiptNo != ServiceReceiptNo) {
         return response.status(404).json({ message: 'Service Receipt not found.' });
     }

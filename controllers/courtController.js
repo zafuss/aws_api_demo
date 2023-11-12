@@ -50,7 +50,7 @@ async function editCourt(court) {
             .input('NewCourtName',sql.NVarChar, court.NewCourtName)
             .input('_NewStatus',sql.NVarChar, court._NewStatus)
             .input('NewStartDate',sql.VarChar, court.NewStartDate)
-            .input('BranchID',sql.NVarChar, court.NewBranchID)
+            .input('NewBranchID',sql.NVarChar, court.NewBranchID)
             .execute('EditCourt');
         return editCourt.recordsets;
     } catch (error) {

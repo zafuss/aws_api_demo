@@ -22,7 +22,7 @@ router.get('/courts/:courtid', (request, response) => {
 router.put('/courts/:courtid', (request, response) => {
     let court = { ...request.body };
     let courtid = request.params.courtid;
-    if (court.Courtname != courtid) {
+    if (court.CourtID != courtid) {
         return response.status(404).json({ message: 'Court not found.' });
     }
     courtController.editCourt(court).then(result => response.status(200).json(result));

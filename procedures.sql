@@ -346,7 +346,7 @@ go
 
 exec EditCourt
 	@CourtID = N'STD001',
-	@NewCourtName = N'San Thu Duc 01',
+	@NewCourtName = N'Sân Thủ Đức 01',
 	@_NewStatus = N'Using',
 	@NewStartDate = null,
 	@NewBranchID = null
@@ -617,11 +617,16 @@ as
 begin
 	update RF_Detail
 	set
-		Note = @NewNote
+		Note = ISNULL(@NewNote, Note)
 	where 
 		ReservationNo = @ReservationNo and
 		CourtID = @CourtID
 end
+
+exec EditRFDetailNote
+	@ReservationNo = N'Rev1011230001',
+	@CourtID = N'STD001',
+	@NewNote = N'New note'
 
 go
 

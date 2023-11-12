@@ -4,7 +4,7 @@ const router = express.Router();
 const branchController = require('../controllers/branchController');
 
 router.get('/branches', (request, response) => {
-    branchController.getBranchs().then(result => {
+    branchController.getBranches().then(result => {
         response.json(result[0]);
     });
 });
@@ -22,7 +22,7 @@ router.get('/branches/:branchid', (request, response) => {
 router.put('/branches/:branchid', (request, response) => {
     let branch = { ...request.body };
     let branchid = request.params.branchid;
-    if (branch.Branchname != branchid) {
+    if (branch.BranchID != branchid) {
         return response.status(404).json({ message: 'Branch not found.' });
     }
     branchController.editBranch(branch).then(result => response.status(200).json(result));
