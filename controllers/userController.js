@@ -1,12 +1,14 @@
 var config = require('../dbconfig');
 const sql = require('mssql');
+const { verifyToken } = require('./verifyToken');
 
 
-async function getUsers() {
+async function getUsers(req, res) {
     try {
+        verifyToken;
         let pool = await sql.connect(config);
         let users = await pool.request().query("SELECT * from _USER");
-        return users.recordsets;
+        return res.status(200).json(users);
 
     } catch (error) {
         console.log(error);

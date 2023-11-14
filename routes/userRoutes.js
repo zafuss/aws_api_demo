@@ -2,12 +2,17 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
+const { verifyToken } = require('../controllers/verifyToken');
 
-router.get('/users', (request, response) => {
-    userController.getUsers().then(result => {
-        response.json(result[0]);
-    });
+router.get('/users', async (req, res) => {
+    try {
+        await userController.getUsers(req, res);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
+
 
 router.get('/users/:username', (request, response) => {
     userController.getUser(request.params.username).then(result => {

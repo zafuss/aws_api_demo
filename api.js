@@ -11,7 +11,7 @@ const serviceDetailRoute = require('./routes/serviceDetailRoutes.js')
 const rfDetailRoute = require('./routes/rfDetailRoutes.js')
 const receiptRoute = require('./routes/receiptRoutes.js')
 const reservationRoute = require('./routes/reservationRoutes.js')
-
+const authRoute = require('./routes/authRoute.js')
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -32,7 +32,7 @@ app.use(serviceReceiptRoute);
 app.use(serviceDetailRoute);
 app.use(rfDetailRoute);
 app.use(receiptRoute);
-
+app.use("/v1/auth", authRoute);
 app.get('/', (req, res) => {
     res.send('powered by zafus');
 });
