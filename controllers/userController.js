@@ -8,7 +8,7 @@ async function getUsers(req, res) {
         verifyToken;
         let pool = await sql.connect(config);
         let users = await pool.request().query("SELECT * from _USER");
-        return res.status(200).json(users);
+        return res.status(200).json(users[0]);
 
     } catch (error) {
         console.log(error);
