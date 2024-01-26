@@ -57,7 +57,7 @@ const authController = {
       {
         id: user.PhoneNumber,
       },
-      process.env.JWT_ACCESS_KEY,
+      "bbb",
     );
   },
 
@@ -75,25 +75,29 @@ const authController = {
   loginUser: async (req, res) => {
     try {
       const user = await customerController.getCustomer(req.body.PhoneNumber)
+      
       if (!user) {
         res.status(404).json("Incorrect PhoneNumber");
       }
       const convertedUser = user[0][0];
-      console.log(convertedUser._Password);
+      // console.log(convertedUser._Password);
       
       const validPassword = await bcrypt.compare(
         req.body._Password,
         convertedUser._Password
       );
-      
       if (!validPassword) {
         res.status(404).json("Incorrect password");
       }
+
       if (user && validPassword) {
         
         
         //Generate access token
         const accessToken = authController.generateAccessToken(convertedUser);
+        console.log(validPassword)
+
+        
         //Generate refresh token
         const refreshToken = authController.generateRefreshToken(convertedUser);
         //STORE REFRESH TOKEN IN COOKIE
