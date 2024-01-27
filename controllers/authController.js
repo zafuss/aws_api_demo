@@ -33,9 +33,19 @@ const authController = {
     try {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body._Password, salt);
-      var existCustomer = customerController.getCustomer(req.body.PhoneNumber);
-      if (existCustomer != null) {
-        throw Error("This account is already exists!");
+      var existCustomer = await customerController.getCustomerByPhoneNumber(req.body.PhoneNumber);
+      console.log(existCustomer);
+      if (existCustomer[0][0] != null) {
+
+        return res.status(409).json({ error: "This phone number is already exists!" });
+      }
+      existCustomer = await customerController.getCustomerByEmail(req.body.Email);
+      if (existCustomer[0][0] != null) {
+        return res.status(410).json({ error: "This email is already exists!" });
+      }
+      existCustomer = await customerController.getCustomerByUsername(req.body.Username);
+      if (existCustomer[0][0] != null) {
+        return res.status(411).json({ error: "This username is already exists!" });
       }
       //Create new user
       const newUser =  {
@@ -51,7 +61,7 @@ const authController = {
       const user =  addCustomer(newUser)
       res.status(200).json(user);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json(err['message']);
     }
   },
 

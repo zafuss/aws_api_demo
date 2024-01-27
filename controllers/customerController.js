@@ -13,12 +13,38 @@ async function getCustomers() {
     }
 }
 
-async function getCustomer(PhoneNumber) {
+async function getCustomerByEmail(Email) {
+    try {
+        let pool = await sql.connect(config);
+        let customer = await pool.request()
+            .input('input_parameter',sql.NVarChar, Email)
+            .query('SELECT * from CUSTOMER where PhoneNumber = @input_parameter');
+        return customer.recordsets;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function getCustomerByPhoneNumber(PhoneNumber) {
     try {
         let pool = await sql.connect(config);
         let customer = await pool.request()
             .input('input_parameter',sql.VarChar, PhoneNumber)
             .query('SELECT * from CUSTOMER where PhoneNumber = @input_parameter');
+        return customer.recordsets;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function getCustomerByUsername(Username) {
+    try {
+        let pool = await sql.connect(config);
+        let customer = await pool.request()
+            .input('input_parameter',sql.VarChar, Username)
+            .query('SELECT * from CUSTOMER where Username = @input_parameter');
         return customer.recordsets;
 
     } catch (error) {
@@ -56,7 +82,9 @@ async function editCustomer(customer) {
 
 module.exports = {
     getCustomers : getCustomers,
-    getCustomer : getCustomer,
+    getCustomerByPhoneNumber : getCustomerByPhoneNumber,
+    getCustomerByEmail : getCustomerByEmail,
+    getCustomerByUsername : getCustomerByUsername,
     addCustomer : addCustomer,
     editCustomer : editCustomer,
 }
