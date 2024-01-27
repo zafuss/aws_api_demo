@@ -33,7 +33,10 @@ const authController = {
     try {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body._Password, salt);
-
+      var existCustomer = customerController.getCustomer(req.body.PhoneNumber);
+      if (existCustomer != null) {
+        throw Error("This account is already exists!");
+      }
       //Create new user
       const newUser =  {
         PhoneNumber: req.body.PhoneNumber,
