@@ -47,6 +47,7 @@ const authController = {
       if (existCustomer[0][0] != null) {
         return res.status(411).json({ error: "This username is already exists!" });
       }
+      console.log(hashed);
       //Create new user
       const newUser =  {
         PhoneNumber: req.body.PhoneNumber,
@@ -56,10 +57,10 @@ const authController = {
         Username : req.body.Username,
         _Status : req.body._Status
       };
-
+      console.log(newUser);
       //Save user to DB
       const user =  addCustomer(newUser)
-      res.status(200).json(user);
+      res.status(200).json("Register Successfully");
     } catch (err) {
       res.status(500).json(err['message']);
     }
@@ -87,7 +88,7 @@ const authController = {
   //LOGIN
   loginUser: async (req, res) => {
     try {
-      const user = await customerController.getCustomer(req.body.PhoneNumber)
+      const user = await customerController.getCustomerByPhoneNumber(req.body.PhoneNumber)
       
       if (!user) {
         res.status(404).json("Incorrect PhoneNumber");
@@ -98,7 +99,8 @@ const authController = {
       const validPassword = await bcrypt.compare(
         req.body._Password,
         convertedUser._Password
-      );
+        );
+        console.log(validPassword)
       if (!validPassword) {
         res.status(404).json("Incorrect password");
       }
@@ -108,7 +110,6 @@ const authController = {
         
         //Generate access token
         const accessToken = authController.generateAccessToken(convertedUser);
-        console.log(validPassword)
 
         
         //Generate refresh token
