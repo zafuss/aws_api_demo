@@ -10,11 +10,19 @@ router.get('/customers', (request, response) => {
 });
 
 router.get('/customers/:phonenumber', (request, response) => {
-    customerController.getCustomer(request.params.phonenumber).then(result => {
+    customerController.getCustomerByPhoneNumber(request.params.phonenumber).then(result => {
         if (JSON.stringify(result[0]) === JSON.stringify([])) {
             return response.status(404).json({ message: 'Customer not found.' });
         } else {
-            return response.json(result[0]);
+            // Modify the response data
+            const modifiedResult = result[0].map(customer => {
+                // Exclude '_Password' key
+                const { _Password, ...rest } = customer;
+                // Add 'note1' and 'note2' keys
+                return { ...rest, accessToken: 'null', refreshToken: 'null' };
+            });
+
+            return response.json(modifiedResult);
         }
     });
 });
