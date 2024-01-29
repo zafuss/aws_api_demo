@@ -32,7 +32,7 @@ router.post('/reservations', (request, response) => {
     let reservation = { ...request.body };
 
     reservationController.addReservation(reservation).then(result => {
-        response.status(201).json(result);
+        response.status(201).json(request.body.ReservationNo);
     });
 });
 
