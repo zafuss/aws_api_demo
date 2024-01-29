@@ -33,8 +33,8 @@ async function addReservation(customer) {
             .input('PhoneNumber',sql.VarChar, customer.PhoneNumber)
             .input('Deposite',sql.Decimal, customer.Deposite)
             .input('BookingDate',sql.VarChar, customer.BookingDate)
-            .input('StartDate',sql.VarChar, customer.StartDate)
-            .input('EndDate',sql.VarChar, customer.EndDate)
+            .input('StartTime',sql.VarChar, customer.StartDate)
+            .input('EndTime',sql.VarChar, customer.EndDate)
             .input('_Status',sql.Int, customer._Status)
             .execute('AddReservation');
         return insertReservation.recordsets;
